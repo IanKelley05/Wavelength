@@ -5,58 +5,149 @@
     <meta name="viewport" content="width=device-width, initial-width=1.0">
     <title>Wavelength Date Night</title>
     <style>
+        /* 1. The Color Palette & Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
         :root {
-            --primary: #ff4757;
-            --secondary: #2ed573;
-            --dark: #2f3542;
-            --light: #f1f2f6;
+            --navy: #0B132B;
+            --coral: #FF6B6B;
+            --mint: #4ECDC4;
+            --teal: #1A535C;
+            --salmon: #FFA69E;
+            --cream: #F7FFF7;
+            --dark-coral: #CC5555;
+            --dark-mint: #3BA39C;
         }
         
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--navy);
+            color: var(--cream);
             display: flex;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Sidebar Styles */
+        /* 2. Modern Retro Aesthetic - Noise & Waves */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Wavy Background Elements */
+        .wave-bg {
+            position: absolute;
+            width: 150vw;
+            height: 150vh;
+            background: radial-gradient(circle at 50% 50%, transparent 20%, var(--teal) 21%, var(--teal) 30%, transparent 31%, transparent 40%, var(--coral) 41%, var(--coral) 50%, transparent 51%);
+            opacity: 0.1;
+            top: -25%;
+            left: -25%;
+            z-index: -1;
+            animation: slowSpin 60s linear infinite;
+        }
+
+        @keyframes slowSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 4. Layout & Sidebar - Glassmorphism */
         .sidebar {
-            width: 250px;
-            background-color: #1e222b;
-            padding: 20px;
+            width: 260px;
+            background: rgba(26, 83, 92, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 2px solid var(--teal);
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            gap: 20px;
+            z-index: 10;
         }
 
         .sidebar h2 {
-            color: var(--primary);
+            color: var(--coral);
             text-align: center;
+            font-weight: 900;
+            letter-spacing: 4px;
             margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Chunky 3D Buttons */
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
         }
 
         .nav-btn {
-            background: none;
-            border: 2px solid var(--primary);
-            color: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
+            background-color: var(--navy);
+            color: var(--cream);
+            border: 2px solid var(--mint);
+            box-shadow: 0 4px 0 var(--mint);
         }
 
-        .nav-btn:hover, .nav-btn.active {
-            background-color: var(--primary);
-            color: white;
+        .nav-btn:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--mint);
+            background-color: rgba(78, 205, 196, 0.2);
         }
 
-        /* Main Content Styles */
+        .nav-btn.active {
+            background-color: var(--mint);
+            color: var(--navy);
+            box-shadow: 0 0 0 var(--mint);
+            transform: translateY(4px);
+        }
+
+        .btn-large {
+            background-color: var(--coral);
+            color: var(--cream);
+            padding: 20px 40px;
+            font-size: 22px;
+            border-radius: 50px;
+            box-shadow: 0 8px 0 var(--dark-coral);
+            margin: 10px;
+        }
+
+        .btn-large:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 var(--dark-coral);
+            background-color: #ff8080;
+        }
+
+        .btn-large:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 var(--dark-coral);
+        }
+
+        .btn-alt {
+            background-color: var(--mint);
+            box-shadow: 0 8px 0 var(--dark-mint);
+            color: var(--navy);
+        }
+
+        .btn-alt:hover {
+            box-shadow: 0 4px 0 var(--dark-mint);
+            background-color: #6cf0e7;
+        }
+
+        /* Main Content & Transitions */
         .content {
             flex-grow: 1;
             padding: 40px;
@@ -64,6 +155,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            z-index: 10;
         }
 
         .page {
@@ -71,60 +163,53 @@
             text-align: center;
             width: 100%;
             max-width: 800px;
+            animation: slideUpFade 0.5s ease-out forwards;
         }
 
         .page.active {
             display: block;
         }
 
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
             margin-bottom: 20px;
-            color: var(--secondary);
+            color: var(--cream);
+            text-shadow: 3px 3px 0px var(--teal);
         }
 
-        .btn-large {
-            background-color: var(--secondary);
-            color: var(--dark);
-            border: none;
-            padding: 20px 40px;
-            font-size: 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 10px;
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .btn-large:hover {
-            transform: scale(1.05);
-            background-color: #26b360;
-        }
-
-        /* Slot Machine Styles */
+        /* 3. Enhanced Animations - Slot Machine */
         .slot-machine {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
             margin: 40px 0;
-            background: #1e222b;
+            background: rgba(0, 0, 0, 0.3);
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            border-radius: 20px;
+            border: 2px solid var(--teal);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .window {
-            width: 250px;
-            height: 80px;
-            background: white;
-            color: black;
-            border-radius: 10px;
+            width: 280px;
+            height: 90px;
+            background: var(--cream);
+            color: var(--navy);
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            font-size: 24px;
-            font-weight: bold;
-            border: 4px solid var(--primary);
+            font-size: 28px;
+            font-weight: 900;
+            border: 4px solid var(--salmon);
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .strip {
@@ -132,111 +217,145 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            transition: transform 3s cubic-bezier(0.15, 0.85, 0.35, 1);
+            /* Cubic-bezier for the satisfying snap and bounce */
+            transition: transform 3.5s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+        }
+
+        .strip.blur {
+            filter: blur(3px);
+            transition: filter 0.2s ease, transform 3.5s cubic-bezier(0.175, 0.885, 0.32, 1.15);
         }
 
         .strip-item {
-            height: 80px;
+            height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-shrink: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .vs {
-            font-size: 2rem;
-            color: var(--primary);
-            font-weight: bold;
+            font-size: 2.5rem;
+            color: var(--salmon);
+            font-weight: 900;
+            text-shadow: 2px 2px 0px var(--navy);
         }
 
         .post-spin-actions {
             display: none;
             margin-top: 30px;
+            animation: slideUpFade 0.5s ease-out forwards;
         }
 
-        /* Dial Spinner Styles */
+        /* Dial Spinner - Large Semi-Circle */
         .dial-container {
             position: relative;
-            width: 400px;
-            height: 200px;
+            width: 500px;
+            height: 250px; /* Half height for semi-circle */
             margin: 40px auto;
             overflow: hidden;
+            border-radius: 250px 250px 0 0;
+            border: 8px solid var(--cream);
+            border-bottom: none;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
 
         .dial-bg {
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px; /* Full circle hidden by container overflow */
             border-radius: 50%;
-            background: conic-gradient(from 270deg, #ff4757 0deg, #ffa502 45deg, #2ed573 90deg, #1e90ff 135deg, #9b59b6 180deg, transparent 180deg);
+            background: conic-gradient(from 270deg, var(--coral) 0deg, var(--salmon) 45deg, var(--mint) 90deg, var(--teal) 135deg, var(--coral) 180deg, transparent 180deg);
             position: absolute;
             top: 0;
             left: 0;
         }
 
         .dial-center {
-            width: 50px;
-            height: 50px;
-            background: var(--light);
+            width: 80px;
+            height: 80px;
+            background: var(--navy);
+            border: 6px solid var(--cream);
             border-radius: 50%;
             position: absolute;
-            bottom: -25px;
-            left: 175px;
+            bottom: -40px;
+            left: 204px;
             z-index: 10;
         }
 
         .needle {
-            width: 4px;
-            height: 180px;
-            background: var(--dark);
+            width: 6px;
+            height: 230px;
+            background: var(--cream);
             position: absolute;
             bottom: 0;
-            left: 198px;
+            left: 247px;
             transform-origin: bottom center;
-            transform: rotate(-90deg); /* Start flat on the left */
-            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
+            transform: rotate(-90deg); 
+            transition: transform 3.5s cubic-bezier(0.2, 0.8, 0.3, 1.05);
             z-index: 5;
+            border-radius: 10px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
         }
 
         .needle::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -8px;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 20px solid var(--dark);
+            top: -5px;
+            left: -12px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid var(--cream);
+        }
+
+        .vibrate {
+            animation: vibrate 0.3s linear infinite both;
+        }
+
+        @keyframes vibrate {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
 
         #dial-result {
-            font-size: 2rem;
-            margin-top: 20px;
-            height: 40px;
-            color: var(--primary);
-            font-weight: bold;
+            font-size: 2.5rem;
+            margin-top: 30px;
+            height: 50px;
+            color: var(--mint);
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0 var(--navy);
         }
 
     </style>
 </head>
 <body>
 
+    <div class="wave-bg"></div>
+
     <div class="sidebar">
         <h2>Wavelength</h2>
-        <button class="nav-btn active" onclick="showPage('home')">Home</button>
-        <button class="nav-btn" onclick="showPage('category')">Category Selector</button>
-        <button class="nav-btn" onclick="showPage('dial')">Dial Spinner</button>
+        <button class="btn nav-btn active" onclick="showPage('home')">Home</button>
+        <button class="btn nav-btn" onclick="showPage('category')">Category Selector</button>
+        <button class="btn nav-btn" onclick="showPage('dial')">Dial Spinner</button>
     </div>
 
     <div class="content">
         
         <div id="home" class="page active">
-            <h1>Welcome to Wavelength! ❤️</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 40px;">Ready for our virtual date? Pick what you want to do first.</p>
-            <button class="btn-large" onclick="showPage('category')">Pick a Category</button>
-            <button class="btn-large" style="background-color: var(--primary); color: white;" onclick="showPage('dial')">Spin the Dial</button>
+            <h1>READY TO CONNECT?</h1>
+            <p style="font-size: 1.3rem; margin-bottom: 50px; font-weight: 700; color: var(--salmon);">Virtual Date Night Edition</p>
+            <button class="btn btn-large" onclick="showPage('category')">Pick a Category</button>
+            <button class="btn btn-large btn-alt" onclick="showPage('dial')">Spin the Dial</button>
         </div>
 
         <div id="category" class="page">
-            <h1>Category Selector</h1>
+            <h1>THE CATEGORY</h1>
             
             <div class="slot-machine">
                 <div class="window">
@@ -248,17 +367,16 @@
                 </div>
             </div>
 
-            <button class="btn-large" id="spin-btn" onclick="spinCategories()">Spin!</button>
+            <button class="btn btn-large" id="spin-btn" onclick="spinCategories()">Spin!</button>
 
             <div class="post-spin-actions" id="post-spin-actions">
-                <button class="btn-large" onclick="spinCategories()">Spin Again</button>
-                <button class="btn-large" style="background-color: var(--primary); color: white;" onclick="showPage('dial')">Go to Dial</button>
+                <button class="btn btn-large" onclick="spinCategories()">Spin Again</button>
+                <button class="btn btn-large btn-alt" onclick="showPage('dial')">Go to Dial</button>
             </div>
         </div>
 
         <div id="dial" class="page">
-            <h1>The Target Dial</h1>
-            <p>Spin to see where the target lands! (Percentage from left to right)</p>
+            <h1>THE TARGET</h1>
             
             <div class="dial-container">
                 <div class="dial-bg"></div>
@@ -266,14 +384,13 @@
                 <div class="needle" id="needle"></div>
             </div>
 
-            <button class="btn-large" onclick="spinDial()">Spin the Dial!</button>
+            <button class="btn btn-large btn-alt" id="dial-btn" onclick="spinDial()">Spin the Dial!</button>
             <div id="dial-result"></div>
         </div>
 
     </div>
 
     <script>
-        // Data: Wavelength Categories
         const categories = [
             ["Hot", "Cold"], ["Hard", "Soft"], ["Underrated", "Overrated"], 
             ["Bad", "Good"], ["Ugly", "Beautiful"], ["Round", "Pointy"], 
@@ -282,44 +399,39 @@
             ["Dry", "Wet"], ["Tastes Bad", "Tastes Good"], ["Cheap", "Expensive"]
         ];
 
-        // Navigation Logic
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             
             document.getElementById(pageId).classList.add('active');
             
-            // Highlight active sidebar button
             const buttons = document.querySelectorAll('.nav-btn');
             if(pageId === 'home') buttons[0].classList.add('active');
             if(pageId === 'category') buttons[1].classList.add('active');
             if(pageId === 'dial') buttons[2].classList.add('active');
         }
 
-        // Category Spinner Logic
         function createStripItems(stripId, isReversed, targetWord) {
             const strip = document.getElementById(stripId);
             strip.innerHTML = '';
             strip.style.transition = 'none';
+            strip.classList.remove('blur');
             
-            // Number of dummy items to scroll through
-            const numItems = 20; 
-            const itemHeight = 80;
+            const numItems = 25; 
+            const itemHeight = 90;
 
             let words = [];
             for(let i = 0; i < numItems - 1; i++) {
-                // Pick random words for the blur effect
                 let randomPair = categories[Math.floor(Math.random() * categories.length)];
                 words.push(randomPair[Math.random() > 0.5 ? 0 : 1]);
             }
             
-            // Place the target word at the end (or beginning if reversing)
             if (isReversed) {
-                words.unshift(targetWord); // Target at the top
-                strip.style.transform = `translateY(-${(numItems - 1) * itemHeight}px)`; // Start at the bottom
+                words.unshift(targetWord); 
+                strip.style.transform = `translateY(-${(numItems - 1) * itemHeight}px)`;
             } else {
-                words.push(targetWord); // Target at the bottom
-                strip.style.transform = `translateY(0px)`; // Start at the top
+                words.push(targetWord); 
+                strip.style.transform = `translateY(0px)`;
             }
 
             words.forEach(word => {
@@ -329,67 +441,69 @@
                 strip.appendChild(div);
             });
 
-            // Force a reflow so the browser registers the starting position before animating
             void strip.offsetWidth; 
 
-            // Animate to the target
-            strip.style.transition = 'transform 3s cubic-bezier(0.15, 0.85, 0.35, 1)';
+            strip.classList.add('blur');
+            strip.style.transition = 'transform 3.5s cubic-bezier(0.175, 0.885, 0.32, 1.15)';
+            
             if (isReversed) {
-                strip.style.transform = `translateY(0px)`; // Spin down to the top item
+                strip.style.transform = `translateY(0px)`;
             } else {
-                strip.style.transform = `translateY(-${(numItems - 1) * itemHeight}px)`; // Spin up to the bottom item
+                strip.style.transform = `translateY(-${(numItems - 1) * itemHeight}px)`;
             }
+
+            setTimeout(() => {
+                strip.classList.remove('blur');
+            }, 3200);
         }
 
         function spinCategories() {
             document.getElementById('spin-btn').style.display = 'none';
             document.getElementById('post-spin-actions').style.display = 'none';
 
-            // Pick a random category pair
             const pair = categories[Math.floor(Math.random() * categories.length)];
             
-            // Left spins UP (target at bottom, starts at top)
             createStripItems('left-strip', false, pair[0]);
-            
-            // Right spins DOWN (target at top, starts at bottom)
             createStripItems('right-strip', true, pair[1]);
 
-            // Show post-spin buttons after animation finishes
             setTimeout(() => {
                 document.getElementById('post-spin-actions').style.display = 'block';
-            }, 3000);
+            }, 3500);
         }
 
-        // Initialize empty strips
         document.getElementById('left-strip').innerHTML = '<div class="strip-item">???</div>';
         document.getElementById('right-strip').innerHTML = '<div class="strip-item">???</div>';
 
-        // Dial Spinner Logic
-        let currentRotation = -90; // Starts flat left
+        let currentRotation = -90; 
 
         function spinDial() {
             const needle = document.getElementById('needle');
             const resultText = document.getElementById('dial-result');
+            const dialBtn = document.getElementById('dial-btn');
             
-            resultText.innerText = 'Spinning...';
+            resultText.innerText = '';
+            resultText.classList.remove('vibrate');
+            dialBtn.style.pointerEvents = 'none';
+            dialBtn.style.opacity = '0.5';
             
-            // Calculate a random degree between -90 and 90 (180 degree semi circle)
-            // Add extra full rotations (e.g., 360 * 3) for the spinning effect
-            const extraSpins = 360 * 3; 
+            const extraSpins = 360 * 4; 
             const randomDegree = Math.floor(Math.random() * 181) - 90; 
-            
             const targetRotation = currentRotation + extraSpins + (randomDegree - (currentRotation % 360));
             
             needle.style.transform = `rotate(${targetRotation}deg)`;
             currentRotation = targetRotation;
 
-            // Calculate percentage based on the final resting angle
-            const finalAngle = randomDegree + 90; // Convert -90 to 90 range into 0 to 180
+            const finalAngle = randomDegree + 90; 
             const percentage = Math.round((finalAngle / 180) * 100);
 
             setTimeout(() => {
-                resultText.innerText = `Target is at ${percentage}%!`;
-            }, 3000);
+                resultText.innerText = `TARGET: ${percentage}%`;
+                resultText.classList.add('vibrate');
+                dialBtn.style.pointerEvents = 'all';
+                dialBtn.style.opacity = '1';
+                
+                setTimeout(() => resultText.classList.remove('vibrate'), 600);
+            }, 3500);
         }
     </script>
 </body>
